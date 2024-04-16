@@ -1,10 +1,13 @@
-package com.n11.n11bootcamp;
+package com.n11.n11bootcamp.converter;
 
 import com.n11.n11bootcamp.dto.CustomerDTO;
 import com.n11.n11bootcamp.entity.Customer;
 import com.n11.n11bootcamp.enums.EnumStatus;
 import com.n11.n11bootcamp.request.CustomerSaveRequest;
 
+/*
+mapperstruct yapısı kurduğumuz için artık bu classı kullanmaya gerek kalmıyor.
+ */
 public class CustomConverter {
 
     public static CustomerDTO convertToCustomerDTO(Customer customer){
@@ -18,7 +21,7 @@ public class CustomConverter {
     public static Customer convertToCustomer(CustomerSaveRequest saveRequest){
 
         Customer customer = new Customer();
-        customer.setName(saveRequest.name()); //record uzerinden get islemi
+        customer.setName(saveRequest.nameXXX()); //record uzerinden get islemi
         customer.setSurname(saveRequest.surname());
         customer.setEmail(saveRequest.email());
         customer.setBirthDate(saveRequest.birthDate());

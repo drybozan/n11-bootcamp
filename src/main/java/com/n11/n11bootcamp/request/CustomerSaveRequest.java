@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * immutable bir tiptir.Bu yüzden setter yazmaya da izin vermiyor.Üzerinde değerleri . (nokta) ile alabiliyoruz.
  * Request ve response lar için ideal bir tiptir.*
  * */
-public record CustomerSaveRequest(String name,
+public record CustomerSaveRequest(String nameXXX,
                                   String surname,
                                   LocalDate birthDate,
                                   String username,

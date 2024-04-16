@@ -14,5 +14,5 @@ import lombok.*;
 public abstract class BaseEntity {
 
     @Embedded
-    private BaseAdditionalFields baseAdditionalFields;
+    private BaseAdditionalFields baseAdditionalFields; // bunun içindeki bütün alanlar extends edilen class a yansıtılıyor.
 }

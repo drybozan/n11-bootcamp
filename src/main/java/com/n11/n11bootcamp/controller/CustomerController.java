@@ -2,7 +2,10 @@ package com.n11.n11bootcamp.controller;
 
 import com.n11.n11bootcamp.controller.contract.CustomerControllerContract;
 import com.n11.n11bootcamp.dto.CustomerDTO;
+import com.n11.n11bootcamp.general.RestResponse;
 import com.n11.n11bootcamp.request.CustomerSaveRequest;
+import com.n11.n11bootcamp.request.CustomerUpdateRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +19,7 @@ public class CustomerController {
     public CustomerController(CustomerControllerContract customerControllerContract) {
         this.customerControllerContract = customerControllerContract;
     }
+
 
 
     @PostMapping
@@ -39,12 +43,22 @@ public class CustomerController {
         return savedCustomer;
 
     }
-
     @GetMapping
-    public List<CustomerDTO> getAllCustomers() {
-        List<CustomerDTO> customerDTOList = this.customerControllerContract.getAllCustomers();
+    public ResponseEntity<RestResponse<List<CustomerDTO>>> getAllCustomers() {
+        List<CustomerDTO> allCustomers = customerControllerContract.getAllCustomers();
+        return ResponseEntity.ok(RestResponse.of(allCustomers));
+    }
 
-        return customerDTOList;
+    ///**
+    // * PUT -> api/customers/6478545
+    // * @param debugCustomerId
+    // * @param customer
+    // * @return
+    // */
+    @PutMapping("/{debugCustomerId}")
+   public ResponseEntity<RestResponse<CustomerDTO>> updateCustomer (@PathVariable  Long debugCustomerId, @RequestBody CustomerUpdateRequest request) {
+        CustomerDTO customerDTO = customerControllerContract.updateCustomer(debugCustomerId,request);
+        return ResponseEntity.ok(RestResponse.of(customerDTO));
 
     }
 }
