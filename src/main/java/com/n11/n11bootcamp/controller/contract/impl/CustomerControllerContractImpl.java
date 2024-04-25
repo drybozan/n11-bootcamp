@@ -69,4 +69,10 @@ public class CustomerControllerContractImpl  implements CustomerControllerContra
 
         return CustomerMapper.INSTANCE.convertToCustomerDTO(customer);
     }
+
+    @Override
+    public CustomerDTO getCustomerById(Long id) {
+        Customer customer = customerEntityService.findByIdWithControl(id);
+        return CustomerMapper.INSTANCE.convertToCustomerDTO(customer);
+    }
 }

@@ -6,7 +6,7 @@ public record CustomerUpdateRequest(Long id,
                                     String name,
                                     String surname,
                                     LocalDate birthDate,
-                                    String phoneNumber,
+                                     String phoneNumber,
                                     String email) {
 
 }

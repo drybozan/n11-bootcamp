@@ -23,7 +23,7 @@ public class CustomerController {
 
 
     @PostMapping
-    public CustomerDTO saveCustomer(@RequestBody CustomerSaveRequest saveRequest) {
+    public ResponseEntity<RestResponse<CustomerDTO>> saveCustomer(@RequestBody CustomerSaveRequest saveRequest) {
 
    /*
     {
@@ -40,13 +40,19 @@ public class CustomerController {
 
         CustomerDTO savedCustomer = this.customerControllerContract.saveCustomer(saveRequest);
 
-        return savedCustomer;
+        return ResponseEntity.ok(RestResponse.of(savedCustomer));
 
     }
     @GetMapping
     public ResponseEntity<RestResponse<List<CustomerDTO>>> getAllCustomers() {
         List<CustomerDTO> allCustomers = customerControllerContract.getAllCustomers();
         return ResponseEntity.ok(RestResponse.of(allCustomers));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RestResponse<CustomerDTO>> getCustomerById(@PathVariable  Long id) {
+        CustomerDTO customerById = customerControllerContract.getCustomerById(id);
+        return ResponseEntity.ok(RestResponse.of(customerById));
     }
 
     ///**

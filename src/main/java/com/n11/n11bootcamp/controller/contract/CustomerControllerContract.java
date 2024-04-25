@@ -15,4 +15,6 @@ public interface CustomerControllerContract {
 
     CustomerDTO updateCustomer( Long debugCustomerId,
                               CustomerUpdateRequest request);
+
+    CustomerDTO getCustomerById(Long id);
 }

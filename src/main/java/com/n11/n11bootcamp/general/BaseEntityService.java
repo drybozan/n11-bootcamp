@@ -1,5 +1,6 @@
 package com.n11.n11bootcamp.general;
 
+import com.n11.n11bootcamp.exceptions.ItemNotFoundException;
 import lombok.Getter;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -54,12 +55,11 @@ public abstract class BaseEntityService<E extends BaseEntity, R extends JpaRepos
     public E findByIdWithControl(Long id) {
         Optional<E> optionalE = repository.findById(id);
         E entity;
-     /*   if (optionalE.isPresent()) {*/
+        if (optionalE.isPresent()) {
             entity = optionalE.get();
-   /*     } else {
-            //throw new ItemNotFoundException(GeneralErrorMessage.ITEM_NOT_FOUND);
-            throw new Exception("Data bulunamadı!");
-        }*/
+        } else {
+            throw new ItemNotFoundException(GeneralErrorMessage.ITEM_NOT_FOUND);
+        }
 
         return entity;
     }
