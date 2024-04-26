@@ -33,7 +33,7 @@ public abstract class BaseEntityService<E extends BaseEntity, R extends JpaRepos
         }
 
         LocalDateTime now = LocalDateTime.now();
-       if (entity.getId() == null) { //BaseModel interface i implemente edildi BaseEntity e , bu sayde getId() metoduna sahip olmuş oldu.
+       if (entity.getId() == null) { //BaseEntity de getId() fonksiyonu eklendi hata alınmaması için. extend edildiği classın id si ni get eder.
             // yeni kayıt
             baseAdditionalFields.setCreateDate(now);
             //entity.getBaseAdditionalFields().setCreatorId();
