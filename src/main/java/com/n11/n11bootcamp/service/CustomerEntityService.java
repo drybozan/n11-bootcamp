@@ -1,4 +1,4 @@
-package com.n11.n11bootcamp.service.entityservice;
+package com.n11.n11bootcamp.service;
 
 import com.n11.n11bootcamp.dao.CustomerRepository;
 import com.n11.n11bootcamp.entity.Customer;

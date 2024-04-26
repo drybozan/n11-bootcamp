@@ -1,8 +1,6 @@
 package com.n11.n11bootcamp.controller.contract.impl;
 
-import com.n11.n11bootcamp.converter.CustomConverter;
 import com.n11.n11bootcamp.controller.contract.CustomerControllerContract;
-import com.n11.n11bootcamp.dao.CustomerRepository;
 import com.n11.n11bootcamp.dto.CustomerDTO;
 import com.n11.n11bootcamp.entity.Customer;
 import com.n11.n11bootcamp.errormessage.CustomerErrorMessage;
@@ -11,11 +9,10 @@ import com.n11.n11bootcamp.mapper.CustomerMapper;
 import com.n11.n11bootcamp.request.CustomerSaveRequest;
 import com.n11.n11bootcamp.request.CustomerUpdatePasswordRequest;
 import com.n11.n11bootcamp.request.CustomerUpdateRequest;
-import com.n11.n11bootcamp.service.entityservice.CustomerEntityService;
+import com.n11.n11bootcamp.service.CustomerEntityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor

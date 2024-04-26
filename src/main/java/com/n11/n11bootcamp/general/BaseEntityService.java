@@ -15,6 +15,7 @@ Tüm nesenler için ortak db operasyonları generic şekilde bu class içinde ge
 @Getter
 public abstract class BaseEntityService<E extends BaseEntity, R extends JpaRepository<E, Long>> {
 
+    // entity-> E , Repository->R
     private final R repository;
 
     protected BaseEntityService(R repository) {
@@ -32,12 +33,12 @@ public abstract class BaseEntityService<E extends BaseEntity, R extends JpaRepos
         }
 
         LocalDateTime now = LocalDateTime.now();
-      /*  if (entity.getId() == null) {
+       if (entity.getId() == null) { //BaseModel interface i implemente edildi BaseEntity e , bu sayde getId() metoduna sahip olmuş oldu.
             // yeni kayıt
             baseAdditionalFields.setCreateDate(now);
             //entity.getBaseAdditionalFields().setCreatorId();
         }
-*/
+
         // guncelleme
 
         baseAdditionalFields.setUpdateDate(now);

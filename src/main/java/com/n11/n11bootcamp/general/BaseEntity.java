@@ -11,7 +11,7 @@ import lombok.*;
 @MappedSuperclass //extend edildiği classa mapleme işlemi yapar.
 @Getter
 @Setter
-public abstract class BaseEntity {
+public abstract class BaseEntity implements BaseModel {
 
     @Embedded
     private BaseAdditionalFields baseAdditionalFields; // bunun içindeki bütün alanlar extends edilen class a yansıtılıyor.
