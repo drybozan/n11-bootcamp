@@ -5,8 +5,11 @@ import com.n11.n11bootcamp.controller.contract.CustomerControllerContract;
 import com.n11.n11bootcamp.dao.CustomerRepository;
 import com.n11.n11bootcamp.dto.CustomerDTO;
 import com.n11.n11bootcamp.entity.Customer;
+import com.n11.n11bootcamp.errormessage.CustomerErrorMessage;
+import com.n11.n11bootcamp.general.BusinessException;
 import com.n11.n11bootcamp.mapper.CustomerMapper;
 import com.n11.n11bootcamp.request.CustomerSaveRequest;
+import com.n11.n11bootcamp.request.CustomerUpdatePasswordRequest;
 import com.n11.n11bootcamp.request.CustomerUpdateRequest;
 import com.n11.n11bootcamp.service.entityservice.CustomerEntityService;
 import lombok.RequiredArgsConstructor;
@@ -65,7 +68,7 @@ public class CustomerControllerContractImpl  implements CustomerControllerContra
         Customer customer = customerEntityService.findByIdWithControl(debugCustomerId);
         CustomerMapper.INSTANCE.updateCustomerFields(customer, request);
 
-        customerEntityService.save(customer);
+       customer = customerEntityService.save(customer);
 
         return CustomerMapper.INSTANCE.convertToCustomerDTO(customer);
     }
@@ -73,6 +76,33 @@ public class CustomerControllerContractImpl  implements CustomerControllerContra
     @Override
     public CustomerDTO getCustomerById(Long id) {
         Customer customer = customerEntityService.findByIdWithControl(id);
+        return CustomerMapper.INSTANCE.convertToCustomerDTO(customer);
+    }
+
+    @Override
+    public void deleteCustomer(Long id) {
+        customerEntityService.delete(id);
+    }
+
+    @Override
+    public CustomerDTO updateCustomerPassword(Long id, CustomerUpdatePasswordRequest request) {
+        //burada artık customer null mı var mı diye kontrol etmemize gerek yok
+        //findByIdWithControl() metodunda kendi yazdığımız item not found exceptionı kontrol ediyor
+        // yoksa exception var olamdığını kullanıcıya bildirecektir.
+        Customer customer = customerEntityService.findByIdWithControl(id);
+
+        if (!customer.getPassword().equals(request.oldPass())) {
+            //kendi business exceptionımızı fırlatıyoruz.
+            throw new BusinessException(CustomerErrorMessage.INVALID_OLD_PASSWORD);
+        }
+
+        if (!request.newPass().equals(request.newPass2())) {
+            throw new BusinessException(CustomerErrorMessage.NEW_PASSWORDS_DID_NOT_MATCH);
+        }
+
+        customer.setPassword(request.newPass());
+        customer = customerEntityService.save(customer);
+
         return CustomerMapper.INSTANCE.convertToCustomerDTO(customer);
     }
 }

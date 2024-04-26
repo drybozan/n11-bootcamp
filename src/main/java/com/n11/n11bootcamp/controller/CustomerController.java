@@ -4,6 +4,7 @@ import com.n11.n11bootcamp.controller.contract.CustomerControllerContract;
 import com.n11.n11bootcamp.dto.CustomerDTO;
 import com.n11.n11bootcamp.general.RestResponse;
 import com.n11.n11bootcamp.request.CustomerSaveRequest;
+import com.n11.n11bootcamp.request.CustomerUpdatePasswordRequest;
 import com.n11.n11bootcamp.request.CustomerUpdateRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api/customers")
 public class CustomerController {
 
-    private CustomerControllerContract customerControllerContract;
+    private final CustomerControllerContract customerControllerContract;
 
     public CustomerController(CustomerControllerContract customerControllerContract) {
         this.customerControllerContract = customerControllerContract;
@@ -66,5 +67,19 @@ public class CustomerController {
         CustomerDTO customerDTO = customerControllerContract.updateCustomer(debugCustomerId,request);
         return ResponseEntity.ok(RestResponse.of(customerDTO));
 
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCustomer(@PathVariable Long id) {
+        customerControllerContract.deleteCustomer(id);
+    }
+
+
+    @PatchMapping("/{id}/password")
+    public ResponseEntity<RestResponse<CustomerDTO>> updateCustomerPassword(
+            @PathVariable  Long id,
+           @RequestBody CustomerUpdatePasswordRequest request) {
+        CustomerDTO customerDTO = customerControllerContract.updateCustomerPassword(id, request);
+        return ResponseEntity.ok(RestResponse.of(customerDTO));
     }
 }

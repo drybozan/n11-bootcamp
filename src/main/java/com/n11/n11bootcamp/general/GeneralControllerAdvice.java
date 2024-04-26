@@ -55,20 +55,20 @@ public class GeneralControllerAdvice extends ResponseEntityExceptionHandler {
         // kafkaProducerService.sendMessage("errorLog", message);
 
         return new ResponseEntity<>(restResponse, HttpStatus.INTERNAL_SERVER_ERROR); // http durumu kodunu verip controller tarafından kullanılmasına izin veriyoruz.
-   /*
-   * handler ettikten sonra şu şekilde yanıt dondurulur kullanıcıya:
-            {
-          "data": {
-            "date": "2024-04-25T15:50:05.442354374",
-            "message": "No value present",
-            "description": "uri=/api/customers/3"
-          },
-          "responseDate": "2024-04-25T15:50:05.442482613",
-          "messages": null,
-          "success": false
-        }*/
+       /*
+       * handler ettikten sonra şu şekilde yanıt dondurulur kullanıcıya:
+                {
+              "data": {
+                "date": "2024-04-25T15:50:05.442354374",
+                "message": "No value present",
+                "description": "uri=/api/customers/3"
+              },
+              "responseDate": "2024-04-25T15:50:05.442482613",
+              "messages": null,
+              "success": false
+            }*/
 
-    }
+        }
 
     // runtime exception daha ozel bir exception. Burada runtime exception ı handle edecek metot varken buraya duser daha geneline dusmez.
 
@@ -98,6 +98,16 @@ public class GeneralControllerAdvice extends ResponseEntityExceptionHandler {
        // kafkaProducerService.sendMessage("errorLog", message);
 
         return new ResponseEntity<>(restResponse, HttpStatus.NOT_FOUND);
+         /*{
+              "data": {
+                "date": "2024-04-26T09:58:42.422821905",
+                "message": "Item not found!",
+                "description": "uri=/api/customers/3"
+              },
+              "responseDate": "2024-04-26T09:58:42.422849272",
+              "messages": null,
+              "success": false
+           }*/
     }
 /*
     @Override
