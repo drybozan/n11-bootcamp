@@ -6,6 +6,7 @@ import com.n11.n11bootcamp.general.RestResponse;
 import com.n11.n11bootcamp.request.CustomerSaveRequest;
 import com.n11.n11bootcamp.request.CustomerUpdatePasswordRequest;
 import com.n11.n11bootcamp.request.CustomerUpdateRequest;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -81,5 +82,11 @@ public class CustomerController {
            @RequestBody CustomerUpdatePasswordRequest request) {
         CustomerDTO customerDTO = customerControllerContract.updateCustomerPassword(id, request);
         return ResponseEntity.ok(RestResponse.of(customerDTO));
+    }
+
+    @GetMapping("/with-username/{username}")
+    public ResponseEntity<RestResponse<CustomerDTO>> getCustomerByUsername(@PathVariable @NotBlank String username) {
+        CustomerDTO customerById = customerControllerContract.getCustomerByUsername(username);
+        return ResponseEntity.ok(RestResponse.of(customerById));
     }
 }

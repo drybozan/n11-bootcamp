@@ -16,7 +16,7 @@ Tüm nesenler için ortak db operasyonları generic şekilde bu class içinde ge
 public abstract class BaseEntityService<E extends BaseEntity, R extends JpaRepository<E, Long>> {
 
     // entity-> E , Repository->R
-    private final R repository;
+    private final R repository; // getter fonksiyonu sayesinde miras verdiği classlar buraya erisebilir durumda
 
     protected BaseEntityService(R repository) {
         this.repository = repository;

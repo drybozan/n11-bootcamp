@@ -3,6 +3,7 @@ package com.n11.n11bootcamp.controller.contract.impl;
 import com.n11.n11bootcamp.controller.contract.CustomerControllerContract;
 import com.n11.n11bootcamp.dto.CustomerDTO;
 import com.n11.n11bootcamp.entity.Customer;
+import com.n11.n11bootcamp.enums.EnumStatus;
 import com.n11.n11bootcamp.errormessage.CustomerErrorMessage;
 import com.n11.n11bootcamp.general.BusinessException;
 import com.n11.n11bootcamp.mapper.CustomerMapper;
@@ -11,12 +12,15 @@ import com.n11.n11bootcamp.request.CustomerUpdatePasswordRequest;
 import com.n11.n11bootcamp.request.CustomerUpdateRequest;
 import com.n11.n11bootcamp.service.CustomerEntityService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
+
 public class CustomerControllerContractImpl  implements CustomerControllerContract {
 
    // private final CustomerRepository customerRepository; //yapıcı metot ile enject edilmiş, burası artık entityservice içine çekilde generic hale getirilerek
@@ -99,6 +103,21 @@ public class CustomerControllerContractImpl  implements CustomerControllerContra
 
         customer.setPassword(request.newPass());
         customer = customerEntityService.save(customer);
+
+        return CustomerMapper.INSTANCE.convertToCustomerDTO(customer);
+    }
+
+    @Override
+    public CustomerDTO getCustomerByUsername(String username) {
+        Customer customer = customerEntityService.findCustomerByUsername(username);
+
+       List<Customer> customerList =
+                customerEntityService.findByNameAndSurnameAndStatus(customer.getName(), customer.getSurname(),
+                        EnumStatus.ACTIVE);
+
+        for (Customer customer1 : customerList) {
+            log.info(customer1.getUsername());
+        }
 
         return CustomerMapper.INSTANCE.convertToCustomerDTO(customer);
     }
